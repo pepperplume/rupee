@@ -1,0 +1,37 @@
+﻿@page "/CreateProfile"
+
+@using System.ComponentModel.DataAnnotations
+
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create Profile</PageTitle>
+
+<h3>Create Profile</h3>
+
+<h3>Edit Form Example</h3>
+
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label for="name">Name:</label>
+        <InputText id="name" @bind-Value="model.Name" />
+    </div>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+
+    private Profile model = new Profile();
+
+    private void HandleValidSubmit()
+    {
+        AppState.Profiles.Add(model);
+
+        AppState.Profiles = AppState.Profiles.OrderBy(x => x.Name).ToList();
+
+        NavigationManager.NavigateTo("/");
+    }
+}

@@ -1,0 +1,93 @@
+﻿@page "/"
+@using System.Text.Json
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IJSRuntime jsRuntime
+
+<PageTitle>Profiles</PageTitle>
+
+<h1 class="text-center" >The Nerds</h1>
+
+<div class="d-flex justify-content-center align-items-center" >
+    <NavLink Match="NavLinkMatch.All" href="\CreateProfile">Create Profile</NavLink>
+    
+    <button class="ms-3 btn btn-outline-primary " @onclick="() => SaveState()" >Save</button>
+</div>
+
+<div class="d-flex flex-column align-items-center" >
+@foreach(var profile in AppState.Profiles)
+{
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-center align-items-center" >
+                <h5 class=" m-0 card-title ">@profile.Name</h5>
+                <h5 class=" m-0 card-title ms-3 ">@profile.Amount</h5>
+                <button class="ms-3 btn btn-outline-danger" @onclick="() => RemoveRupee(profile)">-1</button>
+                <button class="ms-3 btn btn-outline-success" @onclick="() => AddRupee(profile)">+1</button>
+                <button class="ms-3 btn btn-outline-secondary">start / +1 hr</button>
+                <button class="ms-3 btn btn-outline-secondary">60:00 / 12:12 AM</button>
+                <button class="ms-3 btn btn-outline-secondary">pause</button>
+                <button class="ms-3 btn btn-outline-secondary">remove</button>                
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+    <div id="saveToastID" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <strong class="me-auto">Rupee</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body bg-success text-white">
+            Saved.
+        </div>
+    </div>
+</div>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        string serializedState = await localStorage.GetItemAsync<string>("appState");
+        AppState.Profiles = JsonSerializer.Deserialize<List<Profile>>(serializedState);
+    }
+
+    private void AddRupee(Profile profile)
+    {
+        profile.Amount++;
+    }
+
+    private void RemoveRupee(Profile profile)
+    {
+        profile.Amount--;
+    }
+
+    private async Task SaveState()
+    {
+        string serializedState = JsonSerializer.Serialize(AppState.Profiles);
+        await localStorage.SetItemAsync("appState", serializedState);
+        await jsRuntime.InvokeVoidAsync("triggerSaveToast");
+    }
+}
+
+<script>
+
+    function triggerSaveToast()
+    {
+        var toastOption =
+        {
+            animation: true,
+            autohide: true,
+            delay: 5000
+        };
+
+        var toastElement = document.getElementById("saveToastID");
+
+        var toast = new bootstrap.Toast(toastElement);
+
+        toast.show()
+    }
+
+</script>
