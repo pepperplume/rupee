@@ -6,32 +6,104 @@
 
 <PageTitle>Profiles</PageTitle>
 
-<h1 class="text-center" >The Nerds</h1>
+<h1 class="text-center">The Nerds</h1>
 
-<div class="d-flex justify-content-center align-items-center" >
+<div class="d-flex justify-content-center align-items-center">
     <NavLink Match="NavLinkMatch.All" href="\CreateProfile">Create Profile</NavLink>
-    
-    <button class="ms-3 btn btn-outline-primary " @onclick="() => SaveState()" >Save</button>
+    <NavLink Match="NavLinkMatch.All" href="\CreateGroupEffort" class="ms-3" >Create Group Effort</NavLink>
+
+    <button class="ms-3 btn btn-outline-primary " @onclick="() => SaveState()">Save</button>
 </div>
 
-<div class="d-flex flex-column align-items-center" >
-@foreach(var profile in AppState.Profiles)
-{
-    <div class="card mt-3">
-        <div class="card-body">
-            <div class="d-flex justify-content-center align-items-center" >
-                <h5 class=" m-0 card-title ">@profile.Name</h5>
-                <h5 class=" m-0 card-title ms-3 ">@profile.Amount</h5>
-                <button class="ms-3 btn btn-outline-danger" @onclick="() => RemoveRupee(profile)">-1</button>
-                <button class="ms-3 btn btn-outline-success" @onclick="() => AddRupee(profile)">+1</button>
-                <button class="ms-3 btn btn-outline-secondary">start / +1 hr</button>
-                <button class="ms-3 btn btn-outline-secondary">60:00 / 12:12 AM</button>
-                <button class="ms-3 btn btn-outline-secondary">pause</button>
-                <button class="ms-3 btn btn-outline-secondary">remove</button>                
+<div class="d-flex flex-column align-items-center">
+    @foreach (var profile in AppState.Profiles)
+    {
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center">
+                    <h5 class=" m-0 card-title ">@profile.Name</h5>
+                    <h5 class=" m-0 card-title ms-3 ">@profile.Amount</h5>
+
+
+                    <div class="btn-group ms-3" role="group" aria-label="Basic example">
+                        <button class=" btn btn-outline-danger" @onclick="() => RemoveRupee(profile)">-1</button>
+                        <button class="btn btn-outline-success" @onclick="() => AddRupee(profile)">+1</button>
+                    </div>
+
+                    <button class="ms-3 btn btn-outline-success" @onclick="() => AddHourEntry(profile)" >
+                        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512">
+                            <path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
+                        </svg>
+                    </button>
+
+                    <button class="ms-3 btn btn-outline-danger "  @onclick="() => DeleteProfile(profile)">X</button>
+
+                </div>
+                @foreach (var hourEntry in profile.HourTimerRecords)
+                {
+                    <div class="pt-3 d-flex justify-content-center align-items-center">
+                        @if(hourEntry.IsPaused)
+                        {
+                            <label>@($"{hourEntry.Duration.Minutes.ToString("D2")}:{hourEntry.Duration.Seconds.ToString("D2")}")</label>
+                        }
+                        else
+                        {
+                            <label>@GetRunningDuration(hourEntry)</label>
+                            <label class="ps-2" >@hourEntry.EstimatedEndTime.ToString("hh:mm tt")</label>
+                        }
+                        <label></label>
+                        <button class="ms-3 btn btn-outline-danger" @onclick="() => TogglePauseTimer(hourEntry)" >
+                            <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
+                                <path d="M48 64C21.5 64 0 85.5 0 112L0 400c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48L48 64zm192 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48l-32 0z" />
+                            </svg>
+                        </button>
+                        <button class="ms-3 btn btn-outline-danger" @onclick="() => RemoveTimer(profile, hourEntry)">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="14" width="10.5" viewBox="0 0 384 512">
+                                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                            </svg>
+                        </button>
+                    </div>
+                }
             </div>
         </div>
-    </div>
-}
+    }
+
+    @foreach(var groupEffort in AppState.GroupEfforts)
+    {
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center">
+                    <h5 class=" m-0 card-title ">@groupEffort.Name</h5>
+                    <h5 class=" m-0 card-title ms-3 ">@groupEffort.TotalAmount</h5>
+
+                    <NavLink Match="NavLinkMatch.All" href="@($"\\CreateGroupEffortProfile\\{groupEffort.GroupEffortID}")" class="ms-3" >Create Group Effort</NavLink>
+
+                    <button class="ms-3 btn btn-outline-danger " @onclick="() => DeleteGroupEffort(groupEffort)">X</button>
+
+                </div>
+
+
+
+                @foreach (var profile in groupEffort.EffortProfiles)
+                {
+                    <div class="row pt-3">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <h5 class=" m-0 card-title ">@profile.Name</h5>
+                            <h5 class=" m-0 card-title ms-3 ">@profile.Amount</h5>
+
+
+                            <div class="btn-group ms-3" role="group" aria-label="Basic example">
+                                <button class=" btn btn-outline-danger" @onclick="() => RemoveRupee(profile)">-1</button>
+                                <button class="btn btn-outline-success" @onclick="() => AddRupee(profile)">+1</button>
+                            </div>
+
+                            <button class="ms-3 btn btn-outline-danger " @onclick="() => DeleteGroupEffortProfile(groupEffort, profile)">X</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
 </div>
 
 <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
@@ -46,12 +118,45 @@
     </div>
 </div>
 
+@* <button class="btn btn-outline-danger border-0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content-id="popover-content" tabindex="0" role="button" data-bs-html="true">
+    <svg xmlns="http://www.w3.org/2000/svg" height="14" width="10.5" viewBox="0 0 384 512">
+        <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+    </svg>
+</button>
+
+<div id="popover-content" class="d-none">
+    <button class="btn btn-danger"  >
+        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+            <path fill="#ffffff" d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z" />
+        </svg>
+    </button>
+</div> *@
+
 @code {
+    private Timer DurationTimer { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        string serializedState = await localStorage.GetItemAsync<string>("appState");
-        AppState.Profiles = JsonSerializer.Deserialize<List<Profile>>(serializedState);
+        DurationTimer = new Timer((s) =>
+        {
+            StateHasChanged();
+        }, null, 0, 70);
+
+        if (AppState.IsLoaded) return;
+
+        string? serializedState = await localStorage.GetItemAsync<string>("appState");
+        if (string.IsNullOrEmpty(serializedState) == false)
+        {
+            AppState.Profiles = JsonSerializer.Deserialize<List<Profile>>(serializedState);
+        }
+
+        string? serializedStateGroupEffort = await localStorage.GetItemAsync<string>("appState-groupEfforts");
+        if (string.IsNullOrEmpty(serializedStateGroupEffort) == false)
+        {
+            AppState.GroupEfforts = JsonSerializer.Deserialize<List<GroupEffort>>(serializedStateGroupEffort);
+        }
+
+        AppState.IsLoaded = true;
     }
 
     private void AddRupee(Profile profile)
@@ -68,14 +173,60 @@
     {
         string serializedState = JsonSerializer.Serialize(AppState.Profiles);
         await localStorage.SetItemAsync("appState", serializedState);
+
+        string serializedStateGroupEffort = JsonSerializer.Serialize(AppState.GroupEfforts);
+        await localStorage.SetItemAsync("appState-groupEfforts", serializedStateGroupEffort);
+
         await jsRuntime.InvokeVoidAsync("triggerSaveToast");
+    }
+
+    private void AddHourEntry(Profile profile)
+    {
+        profile.HourTimerRecords.Add(new HourTimerRecord
+            {
+                StartTime = DateTime.Now,
+                Duration = new TimeSpan(0, 59, 59)
+            }
+        );
+    }
+
+    private void TogglePauseTimer(HourTimerRecord hourEntry)
+    {
+        if (hourEntry.IsPaused) hourEntry.Resume();
+        else hourEntry.Pause();
+    }
+
+    private void RemoveTimer(Profile profile, HourTimerRecord hourEntry)
+    {
+        profile.HourTimerRecords.Remove(hourEntry);
+    }
+
+    private string GetRunningDuration(HourTimerRecord hourEntry)
+    {
+        var runningDuration = $"{hourEntry.RunningDuration.Minutes.ToString("D2")}:{hourEntry.RunningDuration.Seconds.ToString("D2")}";
+
+        return runningDuration;
+    }
+
+    private void DeleteProfile(Profile profile)
+    {
+        AppState.Profiles.Remove(profile);
+    }
+
+    private void DeleteGroupEffort(GroupEffort groupEffort)
+    {
+        AppState.GroupEfforts.Remove(groupEffort);
+    }
+
+    private void DeleteGroupEffortProfile(GroupEffort groupEffort, Profile profile)
+    {
+        groupEffort.EffortProfiles.Remove(profile);
     }
 }
 
 <script>
 
-    function triggerSaveToast()
-    {
+    function triggerSaveToast() {
         var toastOption =
         {
             animation: true,
@@ -89,5 +240,18 @@
 
         toast.show()
     }
+
+    const list = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    list.map((el) => {
+        let opts = {
+            animation: false,
+        }
+        if (el.hasAttribute('data-bs-content-id')) {
+            opts.content = document.getElementById(el.getAttribute('data-bs-content-id')).innerHTML;
+            opts.html = true;
+            opts.sanitize=false;
+        }
+        new bootstrap.Popover(el, opts);
+    })
 
 </script>

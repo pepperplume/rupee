@@ -1,0 +1,45 @@
+﻿@page "/CreateGroupEffort"
+
+@using System.ComponentModel.DataAnnotations
+
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create Group Effort</PageTitle>
+
+<h3>Create Group Effort</h3>
+
+<h3>Edit Form Example</h3>
+
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label for="name">Name:</label>
+        <InputText id="name" @bind-Value="model.Name" />
+    </div>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+
+    private GroupEffort model = new GroupEffort();
+
+    private void HandleValidSubmit()
+    {
+        var latestGroupEffort = AppState.GroupEfforts.MaxBy(x => x.GroupEffortID);
+
+        var newGroupEffortID = 1;
+
+        if (latestGroupEffort is not null) newGroupEffortID = latestGroupEffort.GroupEffortID + 1;
+
+        model.GroupEffortID = newGroupEffortID;
+
+        AppState.GroupEfforts.Add(model);
+
+        AppState.GroupEfforts = AppState.GroupEfforts.OrderBy(x => x.Name).ToList();
+
+        NavigationManager.NavigateTo("/");
+    }
+}

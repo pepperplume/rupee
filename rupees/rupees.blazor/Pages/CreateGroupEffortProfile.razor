@@ -1,0 +1,49 @@
+﻿@page "/CreateGroupEffortProfile/{groupEffortID:int}"
+
+@using System.ComponentModel.DataAnnotations
+
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create Profile</PageTitle>
+
+<h3>Create Profile</h3>
+
+<h3>Edit Form Example</h3>
+
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label for="name">Name:</label>
+        <InputText id="name" @bind-Value="model.Name" />
+    </div>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int groupEffortID { get; set; } = 0;
+
+    private Profile model = new Profile();
+
+    private void HandleValidSubmit()
+    {
+        var groupEffort = AppState.GroupEfforts
+        .Where(x => x.GroupEffortID == groupEffortID)
+        .FirstOrDefault();
+
+        if(groupEffort is null)
+        {
+            //todo: add a message that something went wrong
+            NavigationManager.NavigateTo("/");
+        }
+
+        groupEffort.EffortProfiles.Add(model);
+
+        groupEffort.EffortProfiles = groupEffort.EffortProfiles.OrderBy(x => x.Name).ToList();
+
+        NavigationManager.NavigateTo("/");
+    }
+}
