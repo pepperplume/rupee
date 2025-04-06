@@ -4,7 +4,7 @@ namespace rupees.blazor.Database.Entities;
 
 public class Profile
 {
-    public int ProfileID { get; set; }
+    public int ProfileID { get; set; } = 0;
     public string Name { get; set; } = string.Empty;
     public decimal Amount { get; set; } = 0;
     public List<Transaction> Transactions { get; set; } = new List<Transaction>();

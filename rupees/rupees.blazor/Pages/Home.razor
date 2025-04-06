@@ -9,10 +9,28 @@
 <h1 class="text-center">The Nerds</h1>
 
 <div class="d-flex justify-content-center align-items-center">
-    <NavLink Match="NavLinkMatch.All" href="\CreateProfile">Create Profile</NavLink>
-    <NavLink Match="NavLinkMatch.All" href="\CreateGroupEffort" class="ms-3" >Create Group Effort</NavLink>
+    <NavLink Match="NavLinkMatch.All" href="\CreateProfile" class="btn btn-outline-success svg-success border-0 ">
+        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
+        </svg>
+    </NavLink>
+    <NavLink Match="NavLinkMatch.All" href="\CreateGroupEffort" class="ms-3 btn btn-outline-success svg-success border-0">
+        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="17.5" viewBox="0 0 640 512">
+            <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM609.3 512l-137.8 0c5.4-9.4 8.6-20.3 8.6-32l0-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2l61.4 0C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-59-12.6-79.3-32.9C372.4 196.5 384 163.6 384 128c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112z" />
+        </svg>
+    </NavLink>
 
-    <button class="ms-3 btn btn-outline-primary " @onclick="() => SaveState()">Save</button>
+    <button class="ms-3 btn btn-outline-primary svg-primary border-0" @onclick="() => SaveState()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+            <path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-242.7c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32L64 32zm0 96c0-17.7 14.3-32 32-32l192 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32L96 224c-17.7 0-32-14.3-32-32l0-64zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+        </svg>
+    </button>
 </div>
 
 <div class="d-flex flex-column align-items-center">
@@ -26,17 +44,26 @@
 
 
                     <div class="btn-group ms-3" role="group" aria-label="Basic example">
-                        <button class=" btn btn-outline-danger" @onclick="() => RemoveRupee(profile)">-1</button>
-                        <button class="btn btn-outline-success" @onclick="() => AddRupee(profile)">+1</button>
+                        <button class=" btn btn-outline-danger border-0 " @onclick="() => RemoveRupee(profile)">-1</button>
+                        <button class="btn btn-outline-success border-0" @onclick="() => AddRupee(profile)">+1</button>
                     </div>
 
-                    <button class="ms-3 btn btn-outline-success" @onclick="() => AddHourEntry(profile)" >
+                    <button class="ms-3 btn btn-outline-secondary border-0 svg-secondary" @onclick="() => AddHourEntry(profile)">
                         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512">
                             <path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
                         </svg>
                     </button>
 
-                    <button class="ms-3 btn btn-outline-danger "  @onclick="() => DeleteProfile(profile)">X</button>
+                    <div class="btn-group dropend">
+                        <button class="ms-3 btn btn-outline-danger border-0 svg-danger  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="14" width="10.5" viewBox="0 0 384 512">
+                                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                            </svg>
+                        </button>
+                        <ul class="dropdown-menu p-0 border-0 ms-2 " style="min-width:fit-content;" aria-labelledby="dropdownMenuButton1">
+                            <a class="btn btn-danger p-1 " href="#" @onclick="() => DeleteProfile(profile)">Delete</a>
+                        </ul>
+                    </div>
 
                 </div>
                 @foreach (var hourEntry in profile.HourTimerRecords)
@@ -52,16 +79,21 @@
                             <label class="ps-2" >@hourEntry.EstimatedEndTime.ToString("hh:mm tt")</label>
                         }
                         <label></label>
-                        <button class="ms-3 btn btn-outline-danger" @onclick="() => TogglePauseTimer(hourEntry)" >
+                        <button class="ms-3 btn btn-outline-secondary svg-secondary border-0" @onclick="() => TogglePauseTimer(hourEntry)">
                             <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
                                 <path d="M48 64C21.5 64 0 85.5 0 112L0 400c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48L48 64zm192 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48l-32 0z" />
                             </svg>
                         </button>
-                        <button class="ms-3 btn btn-outline-danger" @onclick="() => RemoveTimer(profile, hourEntry)">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="14" width="10.5" viewBox="0 0 384 512">
-                                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                            </svg>
-                        </button>
+                        <div class="btn-group dropend">
+                            <button class="ms-3 btn btn-outline-danger border-0 svg-danger  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="14" width="10.5" viewBox="0 0 384 512">
+                                    <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                                </svg>
+                            </button>
+                            <ul class="dropdown-menu p-0 border-0 ms-2 " style="min-width:fit-content;" aria-labelledby="dropdownMenuButton1">
+                                <a class="btn btn-danger p-1 " href="#" @onclick="() => RemoveTimer(profile, hourEntry)">Delete</a>
+                            </ul>
+                        </div>
                     </div>
                 }
             </div>
@@ -76,9 +108,25 @@
                     <h5 class=" m-0 card-title ">@groupEffort.Name</h5>
                     <h5 class=" m-0 card-title ms-3 ">@groupEffort.TotalAmount</h5>
 
-                    <NavLink Match="NavLinkMatch.All" href="@($"\\CreateGroupEffortProfile\\{groupEffort.GroupEffortID}")" class="ms-3" >Create Group Effort</NavLink>
+                    <NavLink Match="NavLinkMatch.All" href="@($"\\CreateGroupEffortProfile\\{groupEffort.GroupEffortID}")" class="ms-3 btn btn-outline-success svg-success border-0 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+                            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+                            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
+                        </svg>
+                    </NavLink>
 
-                    <button class="ms-3 btn btn-outline-danger " @onclick="() => DeleteGroupEffort(groupEffort)">X</button>
+                    <div class="btn-group dropend">
+                        <button class="ms-3 btn btn-outline-danger border-0 svg-danger  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="14" width="10.5" viewBox="0 0 384 512">
+                                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                            </svg>
+                        </button>
+                        <ul class="dropdown-menu p-0 border-0 ms-2 " style="min-width:fit-content;" aria-labelledby="dropdownMenuButton1">
+                            <a class="btn btn-danger p-1 " href="#" @onclick="() => DeleteGroupEffort(groupEffort)">Delete</a>
+                        </ul>
+                    </div>
 
                 </div>
 
@@ -93,11 +141,20 @@
 
 
                             <div class="btn-group ms-3" role="group" aria-label="Basic example">
-                                <button class=" btn btn-outline-danger" @onclick="() => RemoveRupee(profile)">-1</button>
-                                <button class="btn btn-outline-success" @onclick="() => AddRupee(profile)">+1</button>
+                                <button class=" btn btn-outline-danger border-0" @onclick="() => RemoveRupee(profile)">-1</button>
+                                <button class="btn btn-outline-success border-0" @onclick="() => AddRupee(profile)">+1</button>
                             </div>
 
-                            <button class="ms-3 btn btn-outline-danger " @onclick="() => DeleteGroupEffortProfile(groupEffort, profile)">X</button>
+                            <div class="btn-group dropend">
+                                <button class="ms-3 btn btn-outline-danger border-0 svg-danger  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="14" width="10.5" viewBox="0 0 384 512">
+                                        <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                                    </svg>
+                                </button>
+                                <ul class="dropdown-menu p-0 border-0 ms-2 " style="min-width:fit-content;" aria-labelledby="dropdownMenuButton1">
+                                    <a class="btn btn-danger p-1 " href="#" @onclick="() => DeleteGroupEffortProfile(groupEffort, profile)">Delete</a>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 }
@@ -118,22 +175,10 @@
     </div>
 </div>
 
-@* <button class="btn btn-outline-danger border-0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content-id="popover-content" tabindex="0" role="button" data-bs-html="true">
-    <svg xmlns="http://www.w3.org/2000/svg" height="14" width="10.5" viewBox="0 0 384 512">
-        <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-    </svg>
-</button>
-
-<div id="popover-content" class="d-none">
-    <button class="btn btn-danger"  >
-        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
-            <path fill="#ffffff" d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z" />
-        </svg>
-    </button>
-</div> *@
-
 @code {
     private Timer DurationTimer { get; set; }
+
+    private int renderCount = 0;
 
     protected override async Task OnInitializedAsync()
     {
@@ -148,6 +193,17 @@
         if (string.IsNullOrEmpty(serializedState) == false)
         {
             AppState.Profiles = JsonSerializer.Deserialize<List<Profile>>(serializedState);
+
+            foreach (var profile in AppState.Profiles)
+            {
+                if (0 < profile.ProfileID) continue;
+
+                var maxID = 1;
+                if (0 < AppState.Profiles.Count) maxID = AppState.Profiles.MaxBy(x => x.ProfileID).ProfileID + 1;
+
+                profile.ProfileID = maxID;
+            }
+
         }
 
         string? serializedStateGroupEffort = await localStorage.GetItemAsync<string>("appState-groupEfforts");
@@ -213,6 +269,19 @@
         AppState.Profiles.Remove(profile);
     }
 
+    [JSInvokable]
+    public static void JSDeleteProfile(int profileID)
+    {
+        var profile = AppState.Profiles
+        .Where(x => x.ProfileID == profileID)
+        .FirstOrDefault();
+
+        if(profile is null) return;
+
+        var profiles = AppState.Profiles;
+        profiles.Remove(profile);
+    }
+
     private void DeleteGroupEffort(GroupEffort groupEffort)
     {
         AppState.GroupEfforts.Remove(groupEffort);
@@ -241,17 +310,62 @@
         toast.show()
     }
 
-    const list = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    list.map((el) => {
-        let opts = {
-            animation: false,
-        }
-        if (el.hasAttribute('data-bs-content-id')) {
-            opts.content = document.getElementById(el.getAttribute('data-bs-content-id')).innerHTML;
-            opts.html = true;
-            opts.sanitize=false;
-        }
-        new bootstrap.Popover(el, opts);
-    })
+    // let popoverDict = {
+    //     banana: "fruit"
+    // };
+
+    // function InitializePopovers() {
+        
+    //     const popoverTriggers = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        
+    //     popoverTriggers.map((popoverTrigger) => {
+        
+    //         let opts = {
+    //             animation: false,
+    //         }
+            
+    //         if (popoverTrigger.hasAttribute('data-bs-content-id')) {
+    //             opts.content = document.getElementById(popoverTrigger.getAttribute('data-bs-content-id')).innerHTML;
+    //             opts.html = true;
+    //             opts.sanitize = false;
+    //             opts.trigger = 'manual';
+    //         }
+
+    //         let popover = new bootstrap.Popover(popoverTrigger, opts);
+
+    //         let btnID = 'btnDeleteInPopoverID' + popoverTrigger.dataset.popoverid;
+    //         popoverDict[btnID] = popover;
+
+    //         popoverTrigger.addEventListener('click', function () {
+    //             popover.show();
+    //         });
+
+    //         document.addEventListener('click', function (event) {
+    //             let isInsidePopover = popoverTrigger.contains(event.target) ||
+    //                 document.querySelector('.popover')?.contains(event.target);
+
+    //             if (!isInsidePopover) {
+    //                 popover.hide();
+    //             }
+    //         });
+    //     });
+    // }
+
+    // function DeleteProfile(profileID){
+
+    //     console.log(profileID);
+
+    //     var popover = popoverDict['btnDeleteInPopoverID' + profileID];
+
+    //     popover.hide();
+
+    //     DotNet.invokeMethodAsync('rupees.blazor', 'JSDeleteProfile', profileID)
+    //         .then(result => {
+    //             console.log(result); // Logs the return value from the Blazor method
+    //         })
+    //         .catch(error => {
+    //             console.error('Error invoking Blazor method:', error);
+    //         });
+    // }
 
 </script>

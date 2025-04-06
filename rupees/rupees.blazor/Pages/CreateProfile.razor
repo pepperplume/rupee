@@ -30,6 +30,12 @@
     {
         AppState.Profiles.Add(model);
 
+        var maxID = 1;
+
+        if (0 < AppState.Profiles.Count) maxID = AppState.Profiles.MaxBy(x => x.ProfileID).ProfileID + 1;
+
+        model.ProfileID = maxID;
+
         AppState.Profiles = AppState.Profiles.OrderBy(x => x.Name).ToList();
 
         NavigationManager.NavigateTo("/");

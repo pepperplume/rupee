@@ -101,3 +101,39 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+
+a.svg-success svg path{
+    fill: #198754;
+}
+
+a.svg-success:hover svg path {
+    fill: #ffffff;
+}
+
+button.svg-primary svg path {
+    fill: #0d6efd;
+}
+
+button.svg-primary:hover svg path {
+    fill: #ffffff;
+}
+
+button.svg-danger svg path {
+    fill: #dc3545;
+}
+
+button.svg-danger:hover svg path {
+    fill: #ffffff;
+}
+button.svg-danger.show svg path {
+    fill: #ffffff;
+}
+
+button.svg-secondary svg path {
+    fill: #212529;
+}
+
+button.svg-secondary:hover svg path {
+    fill: #ffffff;
+}
